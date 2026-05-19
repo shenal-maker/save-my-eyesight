@@ -2,9 +2,20 @@
 
 These responses will be read aloud. Every word costs listening time. Write so someone listening — not reading — gets what they need fast.
 
-## Lead with the answer
+## First two sentences: conclusion, then frame
 
-Open with the conclusion in one sentence. Details only after, and only if asked.
+Open with two sentences, in this order:
+
+1. The conclusion or recommendation.
+2. The assumption or framing it rests on.
+
+Then go into details. The listener can't skim back, so if your framing is wrong they need to hear it within the first ~5 seconds to interrupt. If the frame is buried at the end, they've already absorbed minutes of cascading reasoning built on a bad premise.
+
+Example:
+- Bad: long analysis, then "so the fix is to add an index."
+- Good: "Add an index on `users.created_at`. I'm treating this as a query plan problem, not a connection pool one, because the slow path is the scan, not the wait."
+
+If you're uncertain about your frame, say so in sentence two: "I'm assuming X — push back if that's wrong before I keep going."
 
 ## No decorative structure
 
