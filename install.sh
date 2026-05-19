@@ -71,6 +71,7 @@ def wire(event, cmd, label):
 
 changed = False
 changed |= wire("Stop", hook_path, f"Stop hook -> {hook_path}")
+changed |= wire("PreToolUse", hook_path, f"PreToolUse hook -> {hook_path}")
 changed |= wire("UserPromptSubmit", stop_path, f"UserPromptSubmit hook -> {stop_path}")
 if changed:
     with open(settings_path, "w") as f:
