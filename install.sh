@@ -8,6 +8,23 @@ SETTINGS="$HOME/.claude/settings.json"
 CLAUDE_MD="$HOME/.claude/CLAUDE.md"
 MARKER="<!-- save-my-eyesight: ear-shaped rules -->"
 
+INSTALL_PROMPT=1
+for arg in "$@"; do
+  case "$arg" in
+    --no-prompt) INSTALL_PROMPT=0 ;;
+    -h|--help)
+      cat <<USAGE
+usage: ./install.sh [--no-prompt]
+
+  (default)     wire TTS hook + append ear-shaped rules to ~/.claude/CLAUDE.md
+  --no-prompt   wire TTS hook only, leave CLAUDE.md untouched
+                (use this if you want ear-shaped rules per-project instead of global)
+USAGE
+      exit 0
+      ;;
+  esac
+done
+
 if [[ ! -f "$HOOK_PATH" ]]; then
   echo "missing $HOOK_PATH" >&2
   exit 1
@@ -46,15 +63,20 @@ else:
     print(f"wired Stop hook -> {hook_path}")
 PY
 
-if [[ ! -f "$CLAUDE_MD" ]] || ! grep -qF "$MARKER" "$CLAUDE_MD"; then
-  {
-    echo
-    echo "$MARKER"
-    cat "$EAR_RULES"
-  } >> "$CLAUDE_MD"
-  echo "appended ear-shaped rules -> $CLAUDE_MD"
+if [[ "$INSTALL_PROMPT" == "1" ]]; then
+  if [[ ! -f "$CLAUDE_MD" ]] || ! grep -qF "$MARKER" "$CLAUDE_MD"; then
+    {
+      echo
+      echo "$MARKER"
+      cat "$EAR_RULES"
+    } >> "$CLAUDE_MD"
+    echo "appended ear-shaped rules -> $CLAUDE_MD"
+  else
+    echo "ear-shaped rules already present in $CLAUDE_MD"
+  fi
 else
-  echo "ear-shaped rules already present in $CLAUDE_MD"
+  echo "skipped CLAUDE.md edits (--no-prompt)."
+  echo "drop $EAR_RULES into a project's CLAUDE.md when you want ear-shaped replies for that project only."
 fi
 
 echo

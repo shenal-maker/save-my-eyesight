@@ -27,6 +27,18 @@ The installer does two things:
 
 Your `settings.json` is backed up to `settings.json.bak.<timestamp>` first. The Stop hook is appended to the existing array, not replaced — other hooks (`claudio`, sound packs, etc.) keep working.
 
+### Don't want it global?
+
+If you'd rather keep your global `CLAUDE.md` untouched and apply the ear-shaped rules only to specific projects:
+
+```bash
+./install.sh --no-prompt
+```
+
+That wires the TTS hook only. Then drop `prompts/ear-shaped.md` into any project's own `CLAUDE.md` (or `.claude/CLAUDE.md`) when you want listenable replies there.
+
+The hook strips markdown on its own, so even without the prompt rules, what you hear is tolerable — just longer than it could be.
+
 Start a new Claude Code session and the next reply will speak.
 
 ## Voice input
