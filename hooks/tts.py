@@ -81,10 +81,10 @@ def main() -> int:
     subprocess.run(["pkill", "-x", "say"], stderr=subprocess.DEVNULL)
 
     cmd = ["say"]
-    voice = os.environ.get("SME_VOICE", "").strip()
+    voice = os.environ.get("SME_VOICE", "Noelle (Enhanced)").strip()
     if voice:
         cmd += ["-v", voice]
-    rate = os.environ.get("SME_RATE", "220").strip()
+    rate = os.environ.get("SME_RATE", "260").strip()
     if rate:
         cmd += ["-r", rate]
     cmd.append(spoken)
